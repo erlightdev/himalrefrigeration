@@ -10,6 +10,8 @@
 		"env:generate": "varlock codegen"
 	},
 	"dependencies": {
+		"@dicebear/core": "^9.4.2",
+		"@dicebear/fun-emoji": "^9.4.2",
 		"@himalref/api": "workspace:*",
 		"@himalref/auth": "workspace:*",
 		"@himalref/ui": "workspace:*",
@@ -25,6 +27,8 @@
 		"@tanstack/react-virtual": "^3.14.13",
 		"@varlock/vite-integration": "1.5.1",
 		"better-auth": "catalog:",
+		"embla-carousel-auto-scroll": "^8.6.0",
+		"embla-carousel-react": "^8.6.0",
 		"evlog": "catalog:",
 		"lucide-react": "catalog:",
 		"motion": "^13.4.6",

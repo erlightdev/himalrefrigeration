@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneCall, ShieldCheck, Star } from "lucide-react";
+import { CaseStudies } from "@/components/home/case-studies";
+import { FieldNotes } from "@/components/home/field-notes";
 import HeroSection from "@/components/home/hero-section";
 import { ServicesShowcase } from "@/components/home/services-showcase";
+import { SpacesGallery } from "@/components/home/spaces-gallery";
+import { Testimonials } from "@/components/home/testimonials";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 
@@ -28,6 +32,14 @@ function HomeComponent() {
 				<HeroSection />
 
 				<ServicesShowcase />
+
+				<SpacesGallery />
+
+				<CaseStudies />
+
+				<Testimonials />
+
+				<FieldNotes />
 
 				{/* Trust Banner */}
 				<section className="border-t py-16">

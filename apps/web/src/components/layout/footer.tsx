@@ -83,41 +83,9 @@ const columns = [
 	},
 ];
 
-const trustBrands = ["Soaltee", "Bhatbhateni", "CG+Foods", "HAMS+Hospital"];
-
 const linkHrefs: Record<string, string> = {
 	"About Us": "/about",
 };
-
-function ThemedImage({
-	light,
-	dark,
-	alt,
-	className,
-}: {
-	light: string;
-	dark: string;
-	alt: string;
-	className?: string;
-}) {
-	return (
-		<>
-			<img
-				src={light}
-				alt={alt}
-				className={`${className ?? ""} dark:hidden`}
-				loading="lazy"
-			/>
-			<img
-				src={dark}
-				alt=""
-				aria-hidden
-				className={`${className ?? ""} hidden dark:block`}
-				loading="lazy"
-			/>
-		</>
-	);
-}
 
 export default function Footer() {
 	return (
@@ -201,25 +169,6 @@ export default function Footer() {
 								</a>
 							))}
 						</div>
-					</div>
-
-					<div className="mt-16 grid grid-cols-2 items-center gap-x-8 gap-y-6 border-zinc-200 border-t pt-10 text-zinc-500 md:grid-cols-5 dark:border-white/10 dark:text-zinc-400">
-						<p className="col-span-2 text-sm md:col-span-1">
-							We've served{" "}
-							<span className="font-medium text-zinc-900 dark:text-zinc-100">
-								200+
-							</span>{" "}
-							sites, including
-						</p>
-						{trustBrands.map((brand) => (
-							<ThemedImage
-								key={brand}
-								light={`https://placehold.co/160x40/ffffff/52525b/png?text=${brand}&font=inter`}
-								dark={`https://placehold.co/160x40/0a0a0a/a1a1aa/png?text=${brand}&font=inter`}
-								alt={brand.replace("+", " ")}
-								className="h-8 w-auto object-contain opacity-70 transition hover:opacity-100"
-							/>
-						))}
 					</div>
 
 					<div className="mt-24 grid grid-cols-2 gap-10 md:grid-cols-3 md:gap-8 lg:grid-cols-6 xl:gap-x-12">
