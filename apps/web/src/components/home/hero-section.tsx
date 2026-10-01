@@ -108,7 +108,7 @@ export default function HeroSection() {
 							</div>
 							<div>
 								<div className="font-extrabold text-sm text-white">
-									1,200+ Units
+									200+ Units
 								</div>
 								<div className="text-[11px] text-zinc-300">
 									Installed across Nepal

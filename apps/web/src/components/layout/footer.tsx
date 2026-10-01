@@ -85,6 +85,10 @@ const columns = [
 
 const trustBrands = ["Soaltee", "Bhatbhateni", "CG+Foods", "HAMS+Hospital"];
 
+const linkHrefs: Record<string, string> = {
+	"About Us": "/about",
+};
+
 function ThemedImage({
 	light,
 	dark,
@@ -231,7 +235,7 @@ export default function Footer() {
 									{col.links.map((link) => (
 										<li key={link}>
 											<a
-												href="/"
+												href={linkHrefs[link] ?? "/"}
 												className="group inline-flex items-center gap-1.5 rounded-md border border-transparent bg-transparent py-1.5 pr-2 pl-3 text-sm text-zinc-700 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950 active:border-zinc-400 active:bg-white xl:py-2 xl:pr-2.5 xl:pl-3.5 xl:text-[15px] dark:text-zinc-200 dark:active:border-white/30 dark:active:bg-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.06] dark:hover:text-white"
 											>
 												{link}

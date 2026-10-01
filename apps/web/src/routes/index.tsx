@@ -1,21 +1,7 @@
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@himalref/ui/components/card";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-	Building2,
-	PhoneCall,
-	Refrigerator,
-	ShieldCheck,
-	Snowflake,
-	Star,
-	Wrench,
-} from "lucide-react";
+import { PhoneCall, ShieldCheck, Star } from "lucide-react";
 import HeroSection from "@/components/home/hero-section";
+import { ServicesShowcase } from "@/components/home/services-showcase";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 
@@ -31,33 +17,6 @@ export const Route = createFileRoute("/")({
 	component: HomeComponent,
 });
 
-const SERVICES = [
-	{
-		title: "Commercial Refrigeration",
-		description:
-			"Design, installation, and maintenance of walk-in coolers, freezer rooms, and display cases for supermarkets and restaurants.",
-		icon: Refrigerator,
-	},
-	{
-		title: "HVAC & Air Conditioning",
-		description:
-			"Complete climate control solutions including multi-split ACs, VRF systems, and central ventilation for commercial buildings.",
-		icon: Snowflake,
-	},
-	{
-		title: "Maintenance Support",
-		description:
-			"Scheduled servicing, filter replacement, and gas charging to ensure peak efficiency and eliminate unexpected operational downtime.",
-		icon: Wrench,
-	},
-	{
-		title: "Industrial Cold Storage",
-		description:
-			"Custom cold chain infrastructure for pharmaceutical, agricultural, and food processing facilities across Nepal.",
-		icon: Building2,
-	},
-];
-
 function HomeComponent() {
 	return (
 		<div className="flex min-h-screen flex-col justify-between bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
@@ -68,44 +27,7 @@ function HomeComponent() {
 				{/* Interactive Video Hero Section */}
 				<HeroSection />
 
-				{/* Services Section */}
-				<section className="border-t bg-muted/40 py-20">
-					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<div className="text-center">
-							<h2 className="font-bold text-3xl tracking-tight sm:text-4xl">
-								Complete Cooling & Climate Control
-							</h2>
-							<p className="mt-3 text-lg text-muted-foreground">
-								High-performance solutions backed by certified technicians and
-								original spare parts.
-							</p>
-						</div>
-
-						<div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-							{SERVICES.map((service) => {
-								const Icon = service.icon;
-								return (
-									<Card
-										key={service.title}
-										className="rounded-xl shadow-sm ring-border transition-all [--card-spacing:--spacing(6)] hover:shadow-md hover:ring-primary/50"
-									>
-										<CardHeader>
-											<div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-												<Icon className="size-6" />
-											</div>
-											<CardTitle className="text-xl">{service.title}</CardTitle>
-										</CardHeader>
-										<CardContent>
-											<CardDescription className="text-sm leading-relaxed">
-												{service.description}
-											</CardDescription>
-										</CardContent>
-									</Card>
-								);
-							})}
-						</div>
-					</div>
-				</section>
+				<ServicesShowcase />
 
 				{/* Trust Banner */}
 				<section className="border-t py-16">
