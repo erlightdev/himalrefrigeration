@@ -1,0 +1,3 @@
+{
+  "extends": "@himalref/config/tsconfig.base.json"
+}
