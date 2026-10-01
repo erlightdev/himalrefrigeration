@@ -153,6 +153,7 @@ interface AnimatedSidebarContextValue {
 	state: SidebarState;
 	toggleSidebar: () => void;
 	triggerRef: React.RefObject<HTMLButtonElement | null>;
+	onNavigate?: (href: string) => void;
 }
 
 const AnimatedSidebarContext =
@@ -202,6 +203,11 @@ export interface AnimatedSidebarProviderProps
 	defaultOpenMobile?: boolean;
 	onOpenMobileChange?: (open: boolean) => void;
 	style?: SidebarProviderStyle;
+	/**
+	 * Hand same-tab link clicks to the app's router instead of a full page
+	 * load. Modifier clicks and `target` links still behave natively.
+	 */
+	onNavigate?: (href: string) => void;
 }
 
 export function AnimatedSidebarProvider({
@@ -212,6 +218,7 @@ export function AnimatedSidebarProvider({
 	openMobile,
 	defaultOpenMobile = false,
 	onOpenMobileChange,
+	onNavigate,
 	className,
 	style,
 	...props
@@ -275,6 +282,7 @@ export function AnimatedSidebarProvider({
 				state: desktopOpen ? "expanded" : "collapsed",
 				toggleSidebar,
 				triggerRef,
+				onNavigate,
 			}}
 		>
 			<div
@@ -907,6 +915,18 @@ export interface AnimatedSidebarMenuSubButtonProps {
 	className?: string;
 }
 
+function routeClick(
+	event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+	href: string | undefined,
+	target: string | undefined,
+	onNavigate: ((href: string) => void) | undefined,
+) {
+	if (!href || !onNavigate || (target && target !== "_self")) return;
+	if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+	event.preventDefault();
+	onNavigate(href);
+}
+
 export function AnimatedSidebarMenuSubButton({
 	children,
 	icon,
@@ -928,6 +948,7 @@ export function AnimatedSidebarMenuSubButton({
 			event.preventDefault();
 			return;
 		}
+		routeClick(event, href, target, context.onNavigate);
 		onSelect?.();
 		if (context.isMobile && closeOnSelect) context.setOpenMobile(false);
 	};
@@ -1023,6 +1044,7 @@ export function AnimatedSidebarMenuButton({
 			event.preventDefault();
 			return;
 		}
+		routeClick(event, href, target, context.onNavigate);
 		onSelect?.();
 		const shouldCloseOnSelect = closeOnSelect ?? ariaExpanded === undefined;
 		if (context.isMobile && shouldCloseOnSelect) {

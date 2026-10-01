@@ -9,7 +9,9 @@
 		"dev": "bun run --hot src/index.ts",
 		"start": "bun run dist/index.mjs",
 		"env:generate": "varlock codegen",
-		"auth:generate": "varlock run -- bun x auth@latest generate --config src/services.ts --output ../../packages/db/src/schema/auth.ts --yes"
+		"auth:generate": "varlock run -- bun x auth@latest generate --config src/services.ts --output ../../packages/db/src/schema/auth.ts --yes",
+		"auth:make-owner": "varlock run -- bun src/scripts/make-owner.ts",
+		"db:seed:dev": "varlock run -- bun src/scripts/seed-dev.ts"
 	},
 	"dependencies": {
 		"@himalref/api": "workspace:*",
@@ -19,6 +21,7 @@
 		"@orpc/server": "catalog:",
 		"@orpc/zod": "catalog:",
 		"better-auth": "catalog:",
+		"drizzle-orm": "catalog:",
 		"evlog": "catalog:",
 		"hono": "^4.13.7",
 		"varlock": "catalog:",

@@ -1,6 +1,5 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import {
-	Bell,
 	ClipboardList,
 	FileText,
 	LayoutGrid,
@@ -63,7 +62,10 @@ const destinations = [
 }[];
 
 export function AppSidebar() {
-	const [active, setActive] = useState("Overview");
+	const pathname = useRouterState({
+		select: (state) => state.location.pathname,
+	});
+	const [active, setActive] = useState("");
 	const [openSection, setOpenSection] = useState<string | null>(null);
 
 	return (
@@ -101,15 +103,6 @@ export function AppSidebar() {
 									Search
 								</AnimatedSidebarMenuButton>
 							</AnimatedSidebarMenuItem>
-							<AnimatedSidebarMenuItem>
-								<AnimatedSidebarMenuButton
-									icon={<Bell className="size-4" />}
-									badge="2"
-									onSelect={() => setActive("Notifications")}
-								>
-									Notifications
-								</AnimatedSidebarMenuButton>
-							</AnimatedSidebarMenuItem>
 						</AnimatedSidebarMenu>
 					</AnimatedSidebarGroupContent>
 				</AnimatedSidebarGroup>
@@ -127,7 +120,10 @@ export function AppSidebar() {
 										<AnimatedSidebarMenuButton
 											href={href}
 											isActive={
-												active === label || children?.includes(active) === true
+												href
+													? pathname === href
+													: active === label ||
+														children?.includes(active) === true
 											}
 											ariaExpanded={
 												children ? openSection === label : undefined
@@ -182,9 +178,9 @@ export function AppSidebar() {
 							</AnimatedSidebarMenuItem>
 							<AnimatedSidebarMenuItem>
 								<AnimatedSidebarMenuButton
+									href="/settings/profile"
 									icon={<Settings className="size-4" />}
-									isActive={active === "Settings"}
-									onSelect={() => setActive("Settings")}
+									isActive={pathname.startsWith("/settings")}
 								>
 									Settings
 								</AnimatedSidebarMenuButton>
@@ -210,6 +206,7 @@ function SidebarUser() {
 	const { data: session } = authClient.useSession();
 	const name = session?.user.name ?? "Account";
 	const email = session?.user.email ?? "";
+	const image = session?.user.image;
 	const initials =
 		name
 			.split(" ")
@@ -240,14 +237,23 @@ function SidebarUser() {
 			}}
 			onValueChange={(action) => {
 				if (action === "sign-out") signOut();
+				if (action === "settings") navigate({ to: "/settings/profile" });
 			}}
 			className="w-full"
 		>
 			<SelectTrigger className="min-h-11 gap-3 overflow-hidden border-transparent bg-transparent p-1 pr-3 hover:border-sidebar-border hover:bg-sidebar-foreground/[0.05] group-data-[state=collapsed]/sidebar:pr-1 group-data-[state=collapsed]/sidebar:[&>span:last-child]:hidden">
 				<span className="flex min-w-0 flex-1 items-center gap-3 text-left">
-					<span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary font-semibold text-primary-foreground text-xs">
-						{initials}
-					</span>
+					{image ? (
+						<img
+							src={image}
+							alt=""
+							className="size-9 shrink-0 rounded-full object-cover"
+						/>
+					) : (
+						<span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary font-semibold text-primary-foreground text-xs">
+							{initials}
+						</span>
+					)}
 					<span className="min-w-0 flex-1 group-data-[state=collapsed]/sidebar:hidden">
 						<span className="block truncate font-medium text-sm">{name}</span>
 						<span className="block truncate text-muted-foreground text-xs">

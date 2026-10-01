@@ -8,11 +8,10 @@ import {
 } from "@himalref/ui/components/card";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Activity, CalendarDays, PanelLeft, Wrench } from "lucide-react";
+import { Activity, CalendarDays, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { ModeToggle } from "@/components/mode-toggle";
-import { AnimatedSidebarTrigger } from "@/components/motion/animated-sidebar";
+import { PageHeader } from "@/components/dashboard/page-header";
 import { orpc } from "@/utils/orpc";
 
 export const Route = createFileRoute("/_auth/dashboard")({
@@ -26,19 +25,7 @@ function RouteComponent() {
 
 	return (
 		<div className="flex flex-1 flex-col">
-			<header className="flex h-16 shrink-0 items-center justify-between gap-3 border-border border-b px-4">
-				<div className="flex min-w-0 items-center gap-3">
-					<AnimatedSidebarTrigger className="text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-						<PanelLeft aria-hidden="true" className="size-4" />
-					</AnimatedSidebarTrigger>
-					<div className="h-5 w-px bg-border" />
-					<p className="truncate font-medium text-sm">Overview</p>
-					<span className="hidden text-muted-foreground text-xs sm:inline">
-						Manage your cooling fleet
-					</span>
-				</div>
-				<ModeToggle />
-			</header>
+			<PageHeader title="Overview" description="Manage your cooling fleet" />
 
 			<div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-5 sm:p-8">
 				<div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
