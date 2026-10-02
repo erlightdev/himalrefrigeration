@@ -1,6 +1,13 @@
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import {
+	type BlogPost,
+	formatPostDate,
+	postIsoDate,
+	postsByDate,
+} from "@/data/blog-posts";
 
 /* Abstract artwork per card — drawn in SVG so it scales and themes cleanly. */
 
@@ -115,42 +122,18 @@ function FrostArt() {
 	);
 }
 
-type Note = {
-	category: string;
-	title: string;
-	date: string;
-	art: ReactNode;
-};
-
-// Sample articles until a blog exists; cards become links once posts do.
-const NOTES: Note[] = [
-	{
-		category: "Maintenance",
-		title: "Why your AC needs a service before the monsoon.",
-		date: "2026-09-24",
-		art: <RingsArt />,
-	},
-	{
-		category: "Cold storage",
-		title: "Choosing the right temperature range for a cold room.",
-		date: "2026-09-18",
-		art: <WaveArt />,
-	},
-	{
-		category: "Efficiency",
-		title: "Inverter or fixed-speed: what actually saves power.",
-		date: "2026-09-10",
-		art: <FrostArt />,
-	},
+// Same three looks every time, cycled over whichever posts are actually
+// newest — the art is decorative, not tied to a specific article.
+const ARTS: Array<() => ReactNode> = [
+	() => <RingsArt />,
+	() => <WaveArt />,
+	() => <FrostArt />,
 ];
 
-const dateFormat = new Intl.DateTimeFormat("en-US", {
-	month: "long",
-	day: "numeric",
-	year: "numeric",
-});
-
 export function FieldNotes() {
+	const posts = postsByDate().slice(0, 3);
+	if (posts.length === 0) return null;
+
 	return (
 		<section className="border-t py-20 lg:py-28">
 			<div className="mx-auto max-w-6xl px-5 sm:px-8">
@@ -164,31 +147,39 @@ export function FieldNotes() {
 				</ScrollReveal>
 
 				<div className="mt-12 grid gap-5 md:grid-cols-3">
-					{NOTES.map((note, index) => (
-						<ScrollReveal key={note.title} delay={index * 0.08}>
-							<article className="flex h-full flex-col rounded-3xl border border-border bg-card p-3">
-								<div className="flex-1 px-4 pt-4 pb-6">
-									<p className="font-mono text-muted-foreground text-xs uppercase tracking-wider">
-										{note.category}
-									</p>
-									<h3 className="mt-4 text-pretty font-medium text-lg leading-snug tracking-tight">
-										{note.title}
-									</h3>
-									<time
-										dateTime={note.date}
-										className="mt-4 block text-muted-foreground text-sm"
-									>
-										{dateFormat.format(new Date(`${note.date}T00:00:00`))}
-									</time>
-								</div>
-								<div className="aspect-[5/3] overflow-hidden rounded-2xl">
-									{note.art}
-								</div>
-							</article>
+					{posts.map((post, index) => (
+						<ScrollReveal key={post.id} delay={index * 0.08}>
+							<NoteCard post={post} art={ARTS[index % ARTS.length]()} />
 						</ScrollReveal>
 					))}
 				</div>
 			</div>
 		</section>
+	);
+}
+
+function NoteCard({ post, art }: { post: BlogPost; art: ReactNode }) {
+	return (
+		<Link
+			to="/blog/$slug"
+			params={{ slug: post.slug }}
+			className="group flex h-full flex-col rounded-3xl border border-border bg-card p-3 outline-none transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring"
+		>
+			<div className="flex-1 px-4 pt-4 pb-6">
+				<p className="font-mono text-muted-foreground text-xs uppercase tracking-wider">
+					{post.category}
+				</p>
+				<h3 className="mt-4 text-pretty font-medium text-lg leading-snug tracking-tight transition-colors group-hover:text-primary">
+					{post.title}
+				</h3>
+				<time
+					dateTime={postIsoDate(post)}
+					className="mt-4 block text-muted-foreground text-sm"
+				>
+					{formatPostDate(post)}
+				</time>
+			</div>
+			<div className="aspect-[5/3] overflow-hidden rounded-2xl">{art}</div>
+		</Link>
 	);
 }

@@ -1,9 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Factory } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Factory } from "lucide-react";
 
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import { ServiceCard } from "@/components/service-card";
 import { INDUSTRIES } from "@/data/industries";
 
 export const Route = createFileRoute("/industries/")({
@@ -50,36 +51,16 @@ function IndustriesPage() {
 					<div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 						{INDUSTRIES.map((industry, index) => (
 							<ScrollReveal key={industry.slug} delay={(index % 3) * 0.06}>
-								<Link
+								<ServiceCard
 									to="/industries/$slug"
 									params={{ slug: industry.slug }}
-									className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card outline-none transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring"
-								>
-									<div className="relative aspect-[16/10] overflow-hidden bg-muted">
-										<img
-											src={industry.image}
-											alt=""
-											loading="lazy"
-											className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-										/>
-										<span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-2.5 py-1 font-medium text-[11px] text-white backdrop-blur-sm">
-											<industry.icon className="size-3.5" aria-hidden="true" />
-											{industry.category}
-										</span>
-									</div>
-									<div className="flex flex-1 flex-col p-5">
-										<p className="font-medium transition-colors group-hover:text-primary">
-											{industry.label}
-										</p>
-										<p className="mt-1.5 text-muted-foreground text-sm leading-relaxed">
-											{industry.tagline}
-										</p>
-										<span className="mt-auto flex items-center gap-1 pt-4 text-primary text-sm">
-											See how
-											<ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-										</span>
-									</div>
-								</Link>
+									label={industry.label}
+									tagline={industry.tagline}
+									image={industry.image}
+									icon={industry.icon}
+									aspect="aspect-[4/3]"
+									loading={index < 3 ? "eager" : "lazy"}
+								/>
 							</ScrollReveal>
 						))}
 					</div>

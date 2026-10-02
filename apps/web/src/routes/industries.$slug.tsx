@@ -1,12 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-	ArrowRight,
-	Check,
-	Search,
-	ShieldCheck,
-	Wrench,
-	X,
-} from "lucide-react";
+import { Check, Search, ShieldCheck, Wrench, X } from "lucide-react";
 
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
@@ -20,6 +13,7 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/motion/breadcrumb";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import { ServiceCard } from "@/components/service-card";
 import { getIndustry, INDUSTRIES } from "@/data/industries";
 
 // Same three-phase shape for every industry — the work differs, the
@@ -266,27 +260,16 @@ function IndustryPage() {
 							</div>
 							<div className="mt-6 grid gap-5 sm:grid-cols-3">
 								{related.map((item) => (
-									<Link
+									<ServiceCard
 										key={item.slug}
 										to="/industries/$slug"
 										params={{ slug: item.slug }}
-										className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card outline-none transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring"
-									>
-										<div className="aspect-[16/10] overflow-hidden bg-muted">
-											<img
-												src={item.image}
-												alt=""
-												loading="lazy"
-												className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-											/>
-										</div>
-										<div className="flex items-center justify-between gap-2 p-4">
-											<p className="font-medium text-sm transition-colors group-hover:text-primary">
-												{item.label}
-											</p>
-											<ArrowRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-										</div>
-									</Link>
+										label={item.label}
+										tagline={item.category}
+										image={item.image}
+										icon={item.icon}
+										aspect="aspect-[4/3]"
+									/>
 								))}
 							</div>
 						</div>

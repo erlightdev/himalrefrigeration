@@ -279,10 +279,10 @@ function TeamPage() {
 						</p>
 						<div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
 							<ButtonLink
-								href="/contact"
+								href="/careers"
 								className="bg-white text-primary hover:bg-white/90"
 							>
-								Submit an inquiry
+								View careers
 								<ArrowRight className="size-4" />
 							</ButtonLink>
 							<ButtonLink

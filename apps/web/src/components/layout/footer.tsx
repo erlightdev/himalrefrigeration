@@ -62,6 +62,7 @@ const columns = [
 
 const linkHrefs: Record<string, string> = {
 	"About Us": "/about",
+	Careers: "/careers",
 	"Our Blog": "/blog",
 	"Get a Quote": "/contact",
 	"Help Center": "/faq",
@@ -70,6 +71,10 @@ const linkHrefs: Record<string, string> = {
 	"Case Studies": "/clients",
 	Offers: "/offers",
 	"All Industries": "/industries",
+	"All Services": "/services",
+	"Cooling Systems": "/services/cooling-systems",
+	Installation: "/services/cooling-systems",
+	Maintenance: "/services/maintenance-support",
 	...Object.fromEntries(
 		INDUSTRIES.map((industry) => [
 			industry.label,
