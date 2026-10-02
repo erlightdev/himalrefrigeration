@@ -1,32 +1,13 @@
-import { Button } from "@himalref/ui/components/button";
-import { ArrowRight, Check, Snowflake, Sparkles, X } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { Snowflake } from "lucide-react";
+
+// Decorative stock portraits (see public/images/avatars/README.md).
+const HERO_AVATARS = [
+	"/images/avatars/avatar-1.webp",
+	"/images/avatars/avatar-2.webp",
+	"/images/avatars/avatar-3.webp",
+];
 
 export default function HeroSection() {
-	const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-	const [formData, setFormData] = useState({
-		name: "",
-		phone: "",
-		service: "Cold Room Installation",
-		message: "",
-	});
-	const [formSubmitted, setFormSubmitted] = useState(false);
-
-	const handleSubmitQuote = (e: FormEvent) => {
-		e.preventDefault();
-		setFormSubmitted(true);
-		setTimeout(() => {
-			setIsQuoteModalOpen(false);
-			setFormSubmitted(false);
-			setFormData({
-				name: "",
-				phone: "",
-				service: "Cold Room Installation",
-				message: "",
-			});
-		}, 1800);
-	};
-
 	return (
 		<section className="relative bg-background p-2 sm:p-3 lg:p-4">
 			<div className="w-full">
@@ -93,16 +74,18 @@ export default function HeroSection() {
 						{/* Floating Bottom Right Glass Badge */}
 						<div className="absolute right-8 bottom-5 z-30 hidden max-w-xs items-center gap-3.5 rounded-2xl border border-white/15 bg-black/60 p-3 shadow-2xl backdrop-blur-xl transition-colors hover:border-white/30 lg:flex">
 							<div className="flex -space-x-2.5">
-								<div className="grid size-8 place-items-center rounded-full border-2 border-white/30 bg-primary/90 font-bold text-[10px] text-white">
-									HR
-								</div>
-								<div className="grid size-8 place-items-center rounded-full border-2 border-white/30 bg-blue-600/90 font-bold text-[10px] text-white">
-									BZ
-								</div>
-								<div className="grid size-8 place-items-center rounded-full border-2 border-white/30 bg-emerald-600/90 font-bold text-[10px] text-white">
-									DF
-								</div>
-								<div className="grid size-8 place-items-center rounded-full border-2 border-white/30 bg-amber-500/90 font-bold text-[10px] text-white">
+								{HERO_AVATARS.map((src) => (
+									<img
+										key={src}
+										src={src}
+										alt=""
+										width={32}
+										height={32}
+										loading="lazy"
+										className="size-8 rounded-full border-2 border-white/30 object-cover"
+									/>
+								))}
+								<div className="grid size-8 place-items-center rounded-full border-2 border-white/30 bg-primary font-bold text-[10px] text-white">
 									+
 								</div>
 							</div>
@@ -132,149 +115,6 @@ export default function HeroSection() {
 					</div>
 				</div>
 			</div>
-
-			{/* Quick Quote Modal */}
-			{isQuoteModalOpen && (
-				<div className="fade-in fixed inset-0 z-50 flex animate-in items-center justify-center bg-black/60 p-4 backdrop-blur-xs duration-200">
-					<div className="relative w-full max-w-md rounded-2xl border border-border bg-card p-6 text-foreground shadow-2xl">
-						<button
-							type="button"
-							onClick={() => setIsQuoteModalOpen(false)}
-							className="absolute top-4 right-4 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-						>
-							<X className="size-4" />
-						</button>
-
-						<div className="flex items-center gap-2.5">
-							<div className="grid size-9 place-items-center rounded-lg bg-primary/10 text-primary">
-								<Sparkles className="size-4" />
-							</div>
-							<div>
-								<h3 className="font-bold text-foreground text-lg">
-									Request Technical Consultation
-								</h3>
-								<p className="text-muted-foreground text-xs">
-									Expert estimate within 24 hours.
-								</p>
-							</div>
-						</div>
-
-						{formSubmitted ? (
-							<div className="mt-5 space-y-2 py-6 text-center">
-								<div className="mx-auto grid size-12 place-items-center rounded-full bg-emerald-500/10 text-emerald-500">
-									<Check className="size-6" />
-								</div>
-								<h4 className="font-bold text-base text-foreground">
-									Request Received!
-								</h4>
-								<p className="text-muted-foreground text-xs">
-									Our senior engineer will contact you shortly.
-								</p>
-							</div>
-						) : (
-							<form onSubmit={handleSubmitQuote} className="mt-5 space-y-3">
-								<div>
-									<label
-										htmlFor="quote-name"
-										className="mb-1 block font-semibold text-foreground text-xs"
-									>
-										Full Name / Business Name
-									</label>
-									<input
-										id="quote-name"
-										type="text"
-										required
-										placeholder="Acme Foods / John Doe"
-										value={formData.name}
-										onChange={(e) =>
-											setFormData({ ...formData, name: e.target.value })
-										}
-										className="w-full rounded-md border border-input bg-background px-3 py-1.5 text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</div>
-
-								<div>
-									<label
-										htmlFor="quote-phone"
-										className="mb-1 block font-semibold text-foreground text-xs"
-									>
-										Phone Number
-									</label>
-									<input
-										id="quote-phone"
-										type="tel"
-										required
-										placeholder="+977 98XXXXXXXX"
-										value={formData.phone}
-										onChange={(e) =>
-											setFormData({ ...formData, phone: e.target.value })
-										}
-										className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</div>
-
-								<div>
-									<label
-										htmlFor="quote-service"
-										className="mb-1 block font-semibold text-foreground text-xs"
-									>
-										Service Required
-									</label>
-									<select
-										id="quote-service"
-										value={formData.service}
-										onChange={(e) =>
-											setFormData({ ...formData, service: e.target.value })
-										}
-										className="w-full rounded-md border border-input bg-background px-3 py-1.5 text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-									>
-										<option value="Cold Room Installation">
-											Cold Room / Freezer Room
-										</option>
-										<option value="Commercial HVAC VRF">
-											Commercial HVAC & VRF
-										</option>
-										<option value="Supermarket Refrigeration">
-											Supermarket Display
-										</option>
-										<option value="Emergency Repair Service">
-											Emergency Repair & Servicing
-										</option>
-									</select>
-								</div>
-
-								<div>
-									<label
-										htmlFor="quote-message"
-										className="mb-1 block font-semibold text-foreground text-xs"
-									>
-										Project Notes / Location
-									</label>
-									<textarea
-										id="quote-message"
-										rows={2}
-										placeholder="Room size, location, or special requirements..."
-										value={formData.message}
-										onChange={(e) =>
-											setFormData({ ...formData, message: e.target.value })
-										}
-										className="w-full resize-none rounded-md border border-input bg-background px-3 py-1.5 text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</div>
-
-								<Button
-									type="submit"
-									size="default"
-									className="mt-1 h-9 w-full gap-1.5 rounded-md font-semibold text-xs"
-								>
-									Submit Request
-									<ArrowRight className="size-3.5" />
-								</Button>
-							</form>
-						)}
-					</div>
-				</div>
-			)}
 		</section>
 	);
 }

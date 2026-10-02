@@ -41,6 +41,7 @@ type MegaFeature = {
 	title: string;
 	description: string;
 	image: string;
+	href?: string;
 };
 
 type MegaMenu = {
@@ -212,7 +213,7 @@ const nav: NavItem[] = [
 		},
 	},
 	{
-		href: "/",
+		href: "/industries",
 		label: "Industries",
 		mega: {
 			items: [
@@ -220,22 +221,58 @@ const nav: NavItem[] = [
 					label: "Restaurants & Cafés",
 					category: "Hospitality",
 					Icon: Utensils,
+					href: "/industries/restaurants-cafes",
 				},
-				{ label: "Hotels & Resorts", category: "Hospitality", Icon: Building2 },
-				{ label: "Logistics & Reefer", category: "Transport", Icon: Truck },
-				{ label: "Cold Storage", category: "Industrial", Icon: Snowflake },
-				{ label: "Supermarkets", category: "Retail", Icon: ShoppingCart },
-				{ label: "Pharmaceuticals", category: "Healthcare", Icon: Pill },
-				{ label: "Dairy & Meat", category: "Food processing", Icon: Beef },
-				{ label: "Hospitals", category: "Medical", Icon: HeartPulse },
+				{
+					label: "Hotels & Resorts",
+					category: "Hospitality",
+					Icon: Building2,
+					href: "/industries/hotels-resorts",
+				},
+				{
+					label: "Logistics & Reefer",
+					category: "Transport",
+					Icon: Truck,
+					href: "/industries/logistics-reefer",
+				},
+				{
+					label: "Cold Storage",
+					category: "Industrial",
+					Icon: Snowflake,
+					href: "/industries/cold-storage",
+				},
+				{
+					label: "Supermarkets",
+					category: "Retail",
+					Icon: ShoppingCart,
+					href: "/industries/supermarkets",
+				},
+				{
+					label: "Pharmaceuticals",
+					category: "Healthcare",
+					Icon: Pill,
+					href: "/industries/pharmaceuticals",
+				},
+				{
+					label: "Dairy & Meat",
+					category: "Food processing",
+					Icon: Beef,
+					href: "/industries/dairy-meat",
+				},
+				{
+					label: "Hospitals",
+					category: "Medical",
+					Icon: HeartPulse,
+					href: "/industries/hospitals",
+				},
 			],
 			feature: {
-				tag: "Case Study",
-				title: "Soaltee Crowne Plaza",
+				tag: "Guide",
+				title: "Built around your industry",
 				description:
-					"How we cut energy costs by 28% across 280+ rooms with a centralised cooling retrofit.",
-				image:
-					"https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=800",
+					"How we approach cooling differently for hospitality, retail, healthcare and industrial sites.",
+				image: "/images/industries/hotels-resorts.webp",
+				href: "/industries",
 			},
 		},
 	},
@@ -312,7 +349,7 @@ export default function Header() {
 					className="mx-auto w-full max-w-7xl"
 					onMouseLeave={() => setHovered(null)}
 				>
-					<div className="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/70 bg-white/80 px-4 py-3 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.10)] backdrop-blur-xl md:px-6 md:py-4 dark:border-white/10 dark:bg-zinc-950/70 dark:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.3)]">
+					<div className="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/70 bg-white/80 px-4 py-3 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.10)] backdrop-blur-xl md:px-6 md:py-2.5 dark:border-white/10 dark:bg-zinc-950/70 dark:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.3)]">
 						<a
 							href="/"
 							aria-label="Himal Refrigeration"
@@ -445,7 +482,7 @@ export default function Header() {
 									</ul>
 
 									<a
-										href="/"
+										href={feature.href || "/"}
 										className="group relative overflow-hidden rounded-xl"
 									>
 										<img

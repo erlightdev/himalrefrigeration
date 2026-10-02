@@ -85,6 +85,11 @@ const columns = [
 
 const linkHrefs: Record<string, string> = {
 	"About Us": "/about",
+	"Our Blog": "/blog",
+	"Get a Quote": "/contact",
+	"Help Center": "/faq",
+	Events: "/events",
+	"Case Studies": "/clients",
 };
 
 export default function Footer() {
