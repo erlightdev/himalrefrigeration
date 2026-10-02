@@ -27,6 +27,8 @@ import {
 import type { ComponentType, SVGProps } from "react";
 import { useEffect, useState } from "react";
 
+import { currentOrNextOffer, formatOfferWindow } from "@/data/offers";
+
 import { ModeToggle } from "../mode-toggle";
 
 type MegaItem = {
@@ -285,6 +287,7 @@ export default function Header() {
 	const [scrolled, setScrolled] = useState(false);
 	const [hovered, setHovered] = useState<string | null>(null);
 	const [expanded, setExpanded] = useState<string | null>(null);
+	const currentOffer = currentOrNextOffer();
 
 	useEffect(() => {
 		document.body.style.overflow = open ? "hidden" : "";
@@ -316,17 +319,21 @@ export default function Header() {
 						<div className="mx-auto flex w-full max-w-7xl items-center justify-center gap-2 py-2 pr-10 pl-4 text-xs sm:gap-3 sm:px-10 sm:text-sm">
 							<Sparkles className="h-4 w-4 shrink-0" strokeWidth={1.75} />
 							<p className="min-w-0 truncate">
-								<span className="sm:hidden">Free inspection before Jun 30</span>
+								<span className="sm:hidden">
+									{currentOffer?.occasion ?? "Himal Refrigeration"} — free
+									inspection
+								</span>
 								<span className="hidden sm:inline">
-									Monsoon servicing — free system inspection on bookings before
-									June 30.
+									{currentOffer
+										? `${currentOffer.occasion} offer — free system inspection on bookings through ${formatOfferWindow(currentOffer).split(" – ")[1]}.`
+										: "Book a service visit with our engineering team."}
 								</span>
 							</p>
 							<a
-								href="tel:+9779800000000"
+								href="/offers"
 								className="hidden shrink-0 items-center gap-1 font-medium underline-offset-4 hover:underline sm:inline-flex"
 							>
-								Book now
+								See offer
 								<ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
 							</a>
 						</div>

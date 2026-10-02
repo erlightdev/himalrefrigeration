@@ -1,41 +1,54 @@
-import { buttonVariants } from "@himalref/ui/components/button";
-import { Card } from "@himalref/ui/components/card";
-import { cn } from "@himalref/ui/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import {
 	ArrowRight,
 	Briefcase,
+	HardHat,
 	PhoneCall,
-	Search,
-	Sparkles,
+	Snowflake,
 	Users,
+	Wind,
+	Wrench,
 } from "lucide-react";
-import { useState } from "react";
 
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import { ButtonLink } from "@/components/motion/button/base";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 
 export const Route = createFileRoute("/team")({
-	component: RouteComponent,
+	component: TeamPage,
 	head: () => ({
-		meta: [{ title: "Our Team - Himal Refrigeration & Electrical Engineers" }],
+		meta: [
+			{ title: "Our Team — Himal Refrigeration" },
+			{
+				name: "description",
+				content:
+					"The people behind Himal Refrigeration's HVAC, cold storage and electrical engineering work across Nepal.",
+			},
+		],
+		scripts: [
+			{
+				type: "application/ld+json",
+				children: JSON.stringify({
+					"@context": "https://schema.org",
+					"@type": "Organization",
+					name: "Himal Refrigeration & Electrical Industries",
+					employee: LEADERSHIP.map((person) => ({
+						"@type": "Person",
+						name: person.name,
+						jobTitle: person.title,
+					})),
+				}),
+			},
+		],
 	}),
 });
 
-interface TeamMember {
-	id: string;
-	name: string;
-	role: string;
-	department:
-		| "Management"
-		| "HVAC Engineering"
-		| "Cold Storage"
-		| "Service & AMC"
-		| "MEP & Projects";
-	image: string;
-}
+const FOUNDED = 1998;
 
-const EXECUTIVE_LEADERSHIP = [
+type Person = { name: string; title: string; image: string };
+
+const LEADERSHIP: Person[] = [
 	{
 		name: "Kamal Chaudhary",
 		title: "Managing Director",
@@ -48,399 +61,242 @@ const EXECUTIVE_LEADERSHIP = [
 	},
 ];
 
-const ENGINEERING_TEAM: TeamMember[] = [
+const CAPABILITIES = [
 	{
-		id: "eng-1",
-		name: "Er. Anish Sharma",
-		role: "Chief HVAC Systems Engineer",
-		department: "HVAC Engineering",
-		image:
-			"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+		label: "HVAC Engineering",
+		description:
+			"VRF, VRV and central plant design for homes and large buildings.",
+		icon: Wind,
 	},
 	{
-		id: "eng-2",
-		name: "Er. Sunita Adhikari",
-		role: "Head of Cold Chain & PUF Design",
-		department: "Cold Storage",
-		image:
-			"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
+		label: "Cold Storage",
+		description: "PUF-panel cold rooms, blast freezers and multi-zone storage.",
+		icon: Snowflake,
 	},
 	{
-		id: "eng-3",
-		name: "Ramesh K. Shrestha",
-		role: "Senior Service & After-Sales Manager",
-		department: "Service & AMC",
-		image:
-			"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+		label: "Service & AMC",
+		description: "Scheduled maintenance and 24/7 emergency breakdown response.",
+		icon: Wrench,
 	},
 	{
-		id: "eng-4",
-		name: "Er. Bikash Thapa",
-		role: "MEP & Firefighting Project Lead",
-		department: "MEP & Projects",
-		image:
-			"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
+		label: "MEP & Projects",
+		description:
+			"Mechanical, electrical, plumbing and firefighting contracting.",
+		icon: HardHat,
 	},
-	{
-		id: "eng-5",
-		name: "Deepak P. Gurung",
-		role: "Industrial Chiller Specialist",
-		department: "HVAC Engineering",
-		image:
-			"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80",
-	},
-	{
-		id: "eng-6",
-		name: "Sita Kumari Bista",
-		role: "Dispatch Operations Lead",
-		department: "Service & AMC",
-		image:
-			"https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80",
-	},
-	{
-		id: "eng-7",
-		name: "Er. Prashant Karki",
-		role: "VRF Thermal Design Engineer",
-		department: "HVAC Engineering",
-		image:
-			"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80",
-	},
-	{
-		id: "eng-8",
-		name: "Pooja R. Mahato",
-		role: "Customer Care Lead",
-		department: "Service & AMC",
-		image:
-			"https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=600&q=80",
-	},
-];
-
-const DEPARTMENTS = [
-	"View all",
-	"HVAC Engineering",
-	"Cold Storage",
-	"Service & AMC",
-	"MEP & Projects",
 ];
 
 const PARTNERS = [
-	{ name: "DAIKIN", detail: "Japan (Sole Partner)", primary: true },
-	{ name: "FUJIAIRE", detail: "Malaysia (Authorized)", primary: false },
-	{ name: "JAKSON", detail: "India (Generators)", primary: false },
-	{ name: "BITZER", detail: "Germany (Compressors)", primary: false },
-	{ name: "DANFOSS", detail: "Denmark (Controls)", primary: false },
-	{ name: "COPELAND", detail: "USA (Scroll Tech)", primary: false },
+	{ name: "DAIKIN", detail: "Japan — sole distributor" },
+	{ name: "FUJIAIRE", detail: "Malaysia" },
+	{ name: "JAKSON", detail: "India — generators" },
+	{ name: "BITZER", detail: "Germany — compressors" },
+	{ name: "DANFOSS", detail: "Denmark — controls" },
+	{ name: "COPELAND", detail: "USA — scroll compressors" },
 ];
 
-function RouteComponent() {
-	const [selectedDept, setSelectedDept] = useState<string>("View all");
-	const [searchQuery, setSearchQuery] = useState<string>("");
-
-	const filteredEngineers = ENGINEERING_TEAM.filter((member) => {
-		const matchesDept =
-			selectedDept === "View all" || member.department === selectedDept;
-		const matchesSearch =
-			member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			member.role.toLowerCase().includes(searchQuery.toLowerCase());
-		return matchesDept && matchesSearch;
-	});
+function TeamPage() {
+	const years = new Date().getFullYear() - FOUNDED;
 
 	return (
-		<div className="flex min-h-screen flex-col justify-between bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-			<div>
-				<Header />
+		<div className="flex min-h-screen flex-col bg-background text-foreground">
+			<Header />
 
-				{/* Team Page Title Header Banner */}
-				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background pt-32 pb-12 sm:pt-36 lg:pt-40">
-					<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-					<div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-						<div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-accent px-4 py-1.5 font-semibold text-accent-foreground text-xs shadow-xs sm:text-sm">
-							<Users className="size-4 text-primary" />
-							Certified Refrigeration & HVAC Engineering Team
-						</div>
-
-						<h1 className="mx-auto max-w-4xl text-balance font-extrabold text-3xl text-zinc-900 leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl dark:text-white">
-							Meet the Engineers & Pioneers <br className="hidden sm:inline" />
-							<span className="font-black text-primary">
-								Behind Himal Refrigeration
-							</span>
-							.
+			<main className="flex-1">
+				{/* Hero */}
+				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
+					<div
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+					/>
+					<ScrollReveal className="relative mx-auto max-w-5xl px-5 pt-32 pb-14 text-center sm:px-8 lg:pt-40 lg:pb-20">
+						<p className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-accent px-4 py-1.5 font-semibold text-accent-foreground text-xs sm:text-sm">
+							<Users className="size-4 text-primary" aria-hidden="true" />
+							Team
+						</p>
+						<h1 className="mx-auto mt-5 max-w-3xl text-balance font-extrabold text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+							The people behind the <span className="text-primary">work</span>.
 						</h1>
-
-						<p className="mx-auto mt-4 max-w-3xl text-pretty font-normal text-base text-zinc-700 leading-relaxed sm:text-lg dark:text-zinc-300">
-							Our strength lies in our people. From senior Daikin-certified VRF
-							designers to on-call cold storage specialists, our team brings
-							over 25 years of technical expertise across Nepal.
+						<p className="mx-auto mt-5 max-w-2xl text-pretty text-muted-foreground sm:text-lg">
+							Engineers and technicians across HVAC, cold storage and electrical
+							work, led by the same two people who started Himal in
+							{` ${FOUNDED}`}.
 						</p>
 
-						{/* Stats Bar */}
-						<div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-4 md:grid-cols-4">
-							<div className="rounded-xl border border-zinc-200/80 bg-card p-4 shadow-xs dark:border-zinc-800">
-								<div className="font-black font-mono text-3xl text-primary tracking-tight">
-									50+
-								</div>
-								<div className="mt-1 font-semibold text-xs text-zinc-600 dark:text-zinc-400">
-									Certified Techs
-								</div>
+						<dl className="mx-auto mt-10 grid max-w-xl grid-cols-3 gap-px overflow-hidden rounded-2xl border border-border bg-border">
+							<div className="flex flex-col-reverse bg-background px-5 py-5">
+								<dt className="mt-1 text-muted-foreground text-sm">
+									Years in HVAC
+								</dt>
+								<dd className="font-semibold text-2xl tabular-nums tracking-tight sm:text-3xl">
+									{years}+
+								</dd>
 							</div>
-							<div className="rounded-xl border border-zinc-200/80 bg-card p-4 shadow-xs dark:border-zinc-800">
-								<div className="font-black font-mono text-3xl text-zinc-900 tracking-tight dark:text-white">
-									25+
-								</div>
-								<div className="mt-1 font-semibold text-xs text-zinc-600 dark:text-zinc-400">
-									Years Experience
-								</div>
+							<div className="flex flex-col-reverse bg-background px-5 py-5">
+								<dt className="mt-1 text-muted-foreground text-sm">
+									Disciplines
+								</dt>
+								<dd className="font-semibold text-2xl tabular-nums tracking-tight sm:text-3xl">
+									{CAPABILITIES.length}
+								</dd>
 							</div>
-							<div className="rounded-xl border border-zinc-200/80 bg-card p-4 shadow-xs dark:border-zinc-800">
-								<div className="font-black font-mono text-3xl text-zinc-900 tracking-tight dark:text-white">
-									2 Hours
-								</div>
-								<div className="mt-1 font-semibold text-xs text-zinc-600 dark:text-zinc-400">
-									Emergency Dispatch
-								</div>
+							<div className="flex flex-col-reverse bg-background px-5 py-5">
+								<dt className="mt-1 text-muted-foreground text-sm">Support</dt>
+								<dd className="font-semibold text-2xl tracking-tight sm:text-3xl">
+									24/7
+								</dd>
 							</div>
-							<div className="rounded-xl border border-zinc-200/80 bg-card p-4 shadow-xs dark:border-zinc-800">
-								<div className="font-black font-mono text-3xl text-zinc-900 tracking-tight dark:text-white">
-									100%
-								</div>
-								<div className="mt-1 font-semibold text-xs text-zinc-600 dark:text-zinc-400">
-									In-House Experts
-								</div>
-							</div>
-						</div>
-					</div>
+						</dl>
+					</ScrollReveal>
 				</section>
 
-				{/* Executive Leadership Banner Section */}
-				<section className="border-border/60 border-b bg-background py-16">
-					<div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
-						{/* 3-Column Banner Card */}
-						<div className="grid grid-cols-1 overflow-hidden rounded-3xl bg-primary text-primary-foreground shadow-2xl lg:grid-cols-12">
-							{/* Left Text Column */}
-							<div className="flex flex-col justify-between space-y-8 bg-primary p-8 sm:p-12 lg:col-span-4">
-								<span className="font-bold text-white/80 text-xs uppercase tracking-widest">
-									LEADERSHIP & VISION
-								</span>
-
-								<h2 className="font-extrabold text-2xl text-white leading-snug tracking-tight sm:text-3xl lg:text-4xl">
-									Our ability to engineer precision cooling from multiple angles
-									is built on 25+ years of dedicated experience.
-								</h2>
-
-								<div>
-									<a
-										href="#team-grid"
-										className="inline-flex items-center gap-2 font-extrabold text-sm text-white underline underline-offset-8 transition-colors hover:text-white/80"
-									>
-										Meet our engineering team
-										<ArrowRight className="size-4" />
-									</a>
-								</div>
-							</div>
-
-							{/* Middle Column: Managing Director Card */}
-							<div className="bg-primary/95 p-3 lg:col-span-4">
-								<div className="group relative h-80 overflow-hidden rounded-2xl border border-white/20 bg-zinc-900 shadow-md sm:h-96 lg:h-[480px]">
-									<img
-										src={EXECUTIVE_LEADERSHIP[0].image}
-										alt={EXECUTIVE_LEADERSHIP[0].name}
-										className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-									/>
-									<div className="absolute inset-x-3 bottom-3 space-y-0.5 rounded-xl bg-black/60 p-4 text-white backdrop-blur-md">
-										<div className="font-extrabold text-lg text-white">
-											{EXECUTIVE_LEADERSHIP[0].name}
-										</div>
-										<div className="font-semibold text-xs text-zinc-300">
-											{EXECUTIVE_LEADERSHIP[0].title}
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* Right Column: Executive Director Card */}
-							<div className="bg-primary/95 p-3 lg:col-span-4">
-								<div className="group relative h-80 overflow-hidden rounded-2xl border border-white/20 bg-zinc-900 shadow-md sm:h-96 lg:h-[480px]">
-									<img
-										src={EXECUTIVE_LEADERSHIP[1].image}
-										alt={EXECUTIVE_LEADERSHIP[1].name}
-										className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-									/>
-									<div className="absolute inset-x-3 bottom-3 space-y-0.5 rounded-xl bg-black/60 p-4 text-white backdrop-blur-md">
-										<div className="font-extrabold text-lg text-white">
-											{EXECUTIVE_LEADERSHIP[1].name}
-										</div>
-										<div className="font-semibold text-xs text-zinc-300">
-											{EXECUTIVE_LEADERSHIP[1].title}
-										</div>
-									</div>
-								</div>
+				{/* Group photo */}
+				<section className="border-border/60 border-b">
+					<ScrollReveal className="mx-auto max-w-5xl px-5 py-12 sm:px-8 lg:py-16">
+						<div className="relative overflow-hidden rounded-3xl border border-border">
+							<img
+								src="/images/team/group-photo.webp"
+								alt="The Himal Refrigeration team at a Daikin VRV X product launch"
+								loading="eager"
+								fetchPriority="high"
+								width={1600}
+								height={1067}
+								className="h-80 w-full object-cover object-top sm:h-[28rem] lg:h-[32rem]"
+							/>
+							<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 sm:p-8">
+								<p className="font-semibold text-sm text-white sm:text-base">
+									The whole team, together
+								</p>
+								<p className="mt-1 text-white/80 text-xs sm:text-sm">
+									At the Daikin VRV X product launch
+								</p>
 							</div>
 						</div>
-					</div>
+					</ScrollReveal>
 				</section>
 
-				{/* Clean Minimalist Team Section */}
-				<section id="team-grid" className="py-16 lg:py-24">
-					<div className="mx-auto max-w-7xl space-y-10 px-4 sm:px-6 lg:px-8">
-						{/* Section Title */}
-						<div className="mx-auto max-w-2xl space-y-3 text-center">
-							<h2 className="font-normal font-serif text-3xl text-zinc-900 tracking-tight sm:text-5xl dark:text-white">
-								Meet the team that makes the{" "}
-								<em className="font-normal text-primary italic">
-									magic happen
-								</em>
-							</h2>
-							<p className="font-normal text-sm text-zinc-600 sm:text-base dark:text-zinc-300">
-								Meet our diverse team of world-class engineers, technicians, and
-								cooling specialists.
-							</p>
-						</div>
-
-						{/* Department Filter Tabs & Search Bar */}
-						<div className="flex flex-col items-center justify-between gap-4 border-border/60 border-b pb-6 sm:flex-row">
-							<div className="flex w-full items-center gap-1.5 overflow-x-auto pb-2 sm:w-auto sm:pb-0">
-								{DEPARTMENTS.map((dept) => {
-									const isActive = selectedDept === dept;
-									return (
-										<button
-											key={dept}
-											type="button"
-											onClick={() => setSelectedDept(dept)}
-											className={`whitespace-nowrap rounded-full px-4 py-1.5 font-bold text-xs transition-all ${
-												isActive
-													? "bg-primary text-primary-foreground shadow-xs"
-													: "bg-muted/50 text-zinc-600 hover:bg-muted hover:text-foreground dark:text-zinc-400"
-											}`}
-										>
-											{dept}
-										</button>
-									);
-								})}
-							</div>
-
-							<div className="relative w-full shrink-0 sm:w-64">
-								<Search className="absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-zinc-400" />
-								<input
-									type="text"
-									placeholder="Search team member..."
-									value={searchQuery}
-									onChange={(e) => setSearchQuery(e.target.value)}
-									className="w-full rounded-full border border-input bg-card py-1.5 pr-4 pl-8 text-foreground text-xs shadow-xs transition-all focus:outline-none focus:ring-2 focus:ring-primary"
+				{/* Leadership */}
+				<section className="mx-auto max-w-5xl px-5 py-14 sm:px-8 lg:py-20">
+					<ScrollReveal className="max-w-xl">
+						<p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+							Leadership
+						</p>
+						<h2 className="mt-2 text-balance font-semibold text-2xl tracking-tight sm:text-3xl">
+							Running the company since {FOUNDED}
+						</h2>
+					</ScrollReveal>
+					<div className="mt-8 grid gap-5 sm:grid-cols-2">
+						{LEADERSHIP.map((person, index) => (
+							<ScrollReveal
+								key={person.name}
+								delay={index * 0.08}
+								className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5"
+							>
+								<img
+									src={person.image}
+									alt=""
+									loading="lazy"
+									width={64}
+									height={64}
+									className="size-16 shrink-0 rounded-full bg-muted object-cover object-top"
 								/>
-							</div>
-						</div>
+								<div>
+									<p className="font-medium">{person.name}</p>
+									<p className="text-muted-foreground text-sm">
+										{person.title}
+									</p>
+								</div>
+							</ScrollReveal>
+						))}
+					</div>
+				</section>
 
-						{/* 4-Column Minimalist Team Cards */}
-						<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-							{filteredEngineers.map((engineer) => (
-								<Card
-									key={engineer.id}
-									className="group overflow-hidden rounded-3xl bg-card shadow-sm ring-1 ring-border transition-all hover:shadow-md"
+				{/* Capabilities */}
+				<section className="border-border border-t bg-muted/30">
+					<div className="mx-auto max-w-5xl px-5 py-14 sm:px-8 lg:py-20">
+						<ScrollReveal className="max-w-xl">
+							<p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+								What the team covers
+							</p>
+							<h2 className="mt-2 text-balance font-semibold text-2xl tracking-tight sm:text-3xl">
+								Four disciplines, one team
+							</h2>
+						</ScrollReveal>
+						<div className="mt-8 grid gap-4 sm:grid-cols-2">
+							{CAPABILITIES.map((item, index) => (
+								<ScrollReveal
+									key={item.label}
+									delay={index * 0.06}
+									className="rounded-2xl border border-border bg-card p-6"
 								>
-									<div className="relative flex h-72 items-center justify-center overflow-hidden bg-zinc-100 p-2 dark:bg-zinc-900">
-										<img
-											src={engineer.image}
-											alt={engineer.name}
-											className="h-full w-full rounded-2xl object-cover transition-transform duration-500 group-hover:scale-105"
-										/>
-									</div>
-									<div className="bg-card p-3.5 text-center">
-										<div className="rounded-2xl border border-border/40 bg-muted/40 p-3">
-											<h3 className="font-extrabold text-base text-zinc-900 leading-tight dark:text-white">
-												{engineer.name}
-											</h3>
-											<p className="mt-1 font-semibold text-xs text-zinc-500 dark:text-zinc-400">
-												{engineer.role}
-											</p>
-										</div>
-									</div>
-								</Card>
+									<span className="grid size-10 place-items-center rounded-xl bg-accent text-primary">
+										<item.icon className="size-5" aria-hidden="true" />
+									</span>
+									<h3 className="mt-4 font-medium">{item.label}</h3>
+									<p className="mt-1.5 text-muted-foreground text-sm leading-relaxed">
+										{item.description}
+									</p>
+								</ScrollReveal>
 							))}
 						</div>
 					</div>
 				</section>
 
-				{/* Our Global Partners & Authorized OEM Brands */}
-				<section className="border-border/60 border-y bg-zinc-50/50 py-16 dark:bg-zinc-950/40">
-					<div className="mx-auto max-w-7xl space-y-8 px-4 text-center sm:px-6 lg:px-8">
-						<div className="mx-auto max-w-2xl space-y-2">
-							<span className="font-bold text-primary text-xs uppercase tracking-wider">
-								AUTHORIZED OEM PARTNERS
-							</span>
-							<h2 className="font-extrabold text-2xl text-zinc-900 tracking-tight sm:text-3xl dark:text-white">
-								Global Manufacturing & Distribution Partners
-							</h2>
-							<p className="font-normal text-xs text-zinc-600 sm:text-sm dark:text-zinc-300">
-								Authorized distribution and engineering partnerships with the
-								world's leading HVAC, refrigeration, and power equipment
-								manufacturers.
-							</p>
-						</div>
-
-						{/* Partners Grid */}
-						<div className="grid grid-cols-2 gap-4 pt-2 sm:grid-cols-3 lg:grid-cols-6">
+				{/* Partners */}
+				<section className="border-border border-t">
+					<div className="mx-auto max-w-5xl px-5 py-14 text-center sm:px-8">
+						<p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+							Authorized OEM partners
+						</p>
+						<div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
 							{PARTNERS.map((partner) => (
 								<div
 									key={partner.name}
-									className="flex flex-col items-center justify-center space-y-1 rounded-2xl border border-zinc-200/80 bg-card p-5 shadow-xs transition-all hover:border-primary/40 dark:border-zinc-800"
+									className="rounded-xl border border-border p-4"
 								>
-									<span className="font-black font-mono text-lg text-zinc-900 tracking-wider dark:text-white">
-										{partner.name}
-									</span>
-									<span
-										className={cn(
-											"font-bold text-[10px] uppercase",
-											partner.primary ? "text-primary" : "text-zinc-500",
-										)}
-									>
+									<p className="font-semibold tracking-wide">{partner.name}</p>
+									<p className="mt-0.5 text-muted-foreground text-xs">
 										{partner.detail}
-									</span>
+									</p>
 								</div>
 							))}
 						</div>
 					</div>
 				</section>
 
-				{/* Join Team / Careers CTA Banner */}
-				<section className="bg-primary py-16 text-primary-foreground">
-					<div className="mx-auto max-w-7xl space-y-6 px-4 text-center sm:px-6 lg:px-8">
-						<div className="mx-auto grid size-12 place-items-center rounded-2xl bg-white/10 text-white">
-							<Briefcase className="size-6" />
-						</div>
-						<h2 className="font-extrabold text-3xl tracking-tight sm:text-4xl">
-							Want to Join Nepal's Leading HVAC Family?
+				{/* Careers CTA */}
+				<section className="border-border border-t bg-primary text-primary-foreground">
+					<div className="mx-auto max-w-5xl px-5 py-14 text-center sm:px-8 lg:py-16">
+						<span className="inline-grid size-12 place-items-center rounded-2xl bg-white/10">
+							<Briefcase className="size-6" aria-hidden="true" />
+						</span>
+						<h2 className="mt-5 text-balance font-semibold text-3xl tracking-tight sm:text-4xl">
+							Want to join the team?
 						</h2>
-						<p className="mx-auto max-w-2xl font-normal text-primary-foreground/90 text-sm leading-relaxed sm:text-base">
-							We are always looking for passionate HVAC engineers, cold storage
-							specialists, and certified service technicians to join our growing
-							team across Nepal.
+						<p className="mx-auto mt-3 max-w-xl text-pretty text-primary-foreground/85">
+							We're always looking for HVAC engineers, cold storage specialists
+							and certified technicians across Nepal.
 						</p>
-						<div className="flex flex-col items-center justify-center gap-4 pt-2 sm:flex-row">
-							<a
+						<div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+							<ButtonLink
 								href="/contact"
-								className={cn(
-									buttonVariants({ size: "lg" }),
-									"gap-2 border-0 bg-white font-bold text-primary shadow-xl hover:bg-white/90",
-								)}
+								className="bg-white text-primary hover:bg-white/90"
 							>
-								<Sparkles className="size-4 text-primary" />
-								Submit Career Inquiry
-							</a>
-							<a
+								Submit an inquiry
+								<ArrowRight className="size-4" />
+							</ButtonLink>
+							<ButtonLink
 								href="tel:+9779800000000"
-								className={cn(
-									buttonVariants({ size: "lg" }),
-									"gap-2 border border-white/50 bg-transparent font-bold text-white hover:bg-white/10",
-								)}
+								variant="ghost"
+								className="text-primary-foreground hover:bg-white/10 hover:text-primary-foreground"
 							>
 								<PhoneCall className="size-4" />
-								Call HR Hotline: +977 980-0000000
-							</a>
+								+977 980-0000000
+							</ButtonLink>
 						</div>
 					</div>
 				</section>
-			</div>
+			</main>
 
 			<Footer />
 		</div>

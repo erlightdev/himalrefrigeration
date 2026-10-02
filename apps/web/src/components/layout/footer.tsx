@@ -1,5 +1,7 @@
 import { ArrowUpRight, CalendarDays, ChevronRight } from "lucide-react";
 
+import { INDUSTRIES } from "@/data/industries";
+
 const socials = [
 	{
 		label: "Facebook",
@@ -42,40 +44,15 @@ const columns = [
 	},
 	{
 		label: "Industries",
-		links: [
-			"Restaurant & Cafés",
-			"Hotels & Resorts",
-			"Supermarkets",
-			"Pharmaceuticals",
-			"Dairy & Agriculture",
-			"Logistics",
-		],
-	},
-	{
-		label: "Sectors",
-		links: [
-			"Commercial",
-			"Industrial",
-			"Healthcare",
-			"Cold Storage",
-			"Food Processing",
-			"Residential",
-		],
+		links: ["All Industries", ...INDUSTRIES.map((industry) => industry.label)],
 	},
 	{
 		label: "Support",
-		links: [
-			"Get a Quote",
-			"Help Center",
-			"Service Requests",
-			"Enterprise Support",
-			"Documentation",
-			"Community Forum",
-		],
+		links: ["Get a Quote", "Help Center", "Team"],
 	},
 	{
 		label: "Resources",
-		links: ["Our Blog", "Case Studies", "Pricing", "Roadmap", "Energy Guide"],
+		links: ["Our Blog", "Case Studies", "Offers"],
 	},
 	{
 		label: "Company",
@@ -88,8 +65,17 @@ const linkHrefs: Record<string, string> = {
 	"Our Blog": "/blog",
 	"Get a Quote": "/contact",
 	"Help Center": "/faq",
+	Team: "/team",
 	Events: "/events",
 	"Case Studies": "/clients",
+	Offers: "/offers",
+	"All Industries": "/industries",
+	...Object.fromEntries(
+		INDUSTRIES.map((industry) => [
+			industry.label,
+			`/industries/${industry.slug}`,
+		]),
+	),
 };
 
 export default function Footer() {
@@ -176,7 +162,7 @@ export default function Footer() {
 						</div>
 					</div>
 
-					<div className="mt-24 grid grid-cols-2 gap-10 md:grid-cols-3 md:gap-8 lg:grid-cols-6 xl:gap-x-12">
+					<div className="mt-24 grid grid-cols-2 gap-10 md:grid-cols-3 md:gap-8 lg:grid-cols-5 xl:gap-x-12">
 						{columns.map((col) => (
 							<div key={col.label}>
 								<div className="flex items-center gap-2 text-xs text-zinc-500 uppercase tracking-wider xl:text-[13px] dark:text-zinc-500">
@@ -250,13 +236,13 @@ export default function Footer() {
 						</span>
 						<div className="flex items-center gap-8">
 							<a
-								href="/"
+								href="/privacy"
 								className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-200"
 							>
 								Privacy Policy
 							</a>
 							<a
-								href="/"
+								href="/terms"
 								className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-200"
 							>
 								Terms of Service
