@@ -2,8 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { ButtonLink } from "@/components/motion/button/base";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/motion/tabs";
@@ -17,7 +15,7 @@ import {
 	isUpcoming,
 } from "@/data/events";
 
-export const Route = createFileRoute("/events/")({
+export const Route = createFileRoute("/_public/events/")({
 	component: EventsPage,
 	head: () => ({
 		meta: [
@@ -51,10 +49,7 @@ function EventsPage() {
 	}, [filter]);
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
 						aria-hidden="true"
@@ -142,10 +137,7 @@ function EventsPage() {
 						</section>
 					) : null}
 				</div>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }
 

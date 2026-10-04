@@ -14,7 +14,7 @@ import {
   type ReactNode,
 } from "react";
 import { EASE_OUT, SPRING_LAYOUT, SPRING_PRESS } from "@/lib/ease";
-import { useHoverCapable } from "@/lib/hooks/use-hover-capable";
+import { useHoverCapable } from "@/hooks/use-hover-capable";
 import { cn } from "@himalref/ui/lib/utils";
 
 export interface ExpandingArrowButtonProps extends Omit<

@@ -3,6 +3,7 @@ import { defineConfig } from "nitro";
 
 export default defineConfig({
 	serverDir: "./server",
+	plugins: ["./server/plugins/evlog-drain.ts"],
 	experimental: {
 		asyncContext: true,
 	},

@@ -15,13 +15,11 @@ import {
 } from "lucide-react";
 import { type ComponentType, useMemo, useState } from "react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { Input } from "@/components/motion/input";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/motion/tabs";
 
-export const Route = createFileRoute("/clients")({
+export const Route = createFileRoute("/_public/clients")({
 	component: RouteComponent,
 	head: () => ({
 		meta: [
@@ -529,10 +527,7 @@ function RouteComponent() {
 	const years = new Date().getFullYear() - 1998;
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
 						aria-hidden="true"
@@ -723,9 +718,6 @@ function RouteComponent() {
 						</div>
 					)}
 				</div>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

@@ -10,12 +10,10 @@ import {
 	Wrench,
 } from "lucide-react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { ButtonLink } from "@/components/motion/button/base";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 
-export const Route = createFileRoute("/team")({
+export const Route = createFileRoute("/_public/team")({
 	component: TeamPage,
 	head: () => ({
 		meta: [
@@ -99,10 +97,7 @@ function TeamPage() {
 	const years = new Date().getFullYear() - FOUNDED;
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				{/* Hero */}
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
@@ -296,9 +291,6 @@ function TeamPage() {
 						</div>
 					</div>
 				</section>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

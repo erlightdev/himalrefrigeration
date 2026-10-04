@@ -9,7 +9,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/lib/toast";
 
-import Loader from "../loader";
+import Loader from "@/components/loader";
 import { ConcentricTunnel } from "./concentric-tunnel";
 import { StudioBackground } from "./studio-background";
 

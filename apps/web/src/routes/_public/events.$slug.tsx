@@ -1,8 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, Check, Clock, MapPin } from "lucide-react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -20,7 +18,7 @@ import {
 	isUpcoming,
 } from "@/data/events";
 
-export const Route = createFileRoute("/events/$slug")({
+export const Route = createFileRoute("/_public/events/$slug")({
 	loader: ({ params }) => {
 		const event = EVENTS.find((item) => item.slug === params.slug);
 		if (!event) throw notFound();
@@ -45,10 +43,7 @@ function EventPage() {
 		.slice(0, 3);
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<article className="mx-auto max-w-5xl px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
 					<Breadcrumb>
 						<BreadcrumbList maxItems={Number.POSITIVE_INFINITY}>
@@ -166,10 +161,7 @@ function EventPage() {
 						</div>
 					</section>
 				) : null}
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }
 

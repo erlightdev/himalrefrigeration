@@ -1,15 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneCall, ShieldCheck, Star } from "lucide-react";
-import { CaseStudies } from "@/components/home/case-studies";
-import { FieldNotes } from "@/components/home/field-notes";
-import HeroSection from "@/components/home/hero-section";
-import { ServicesShowcase } from "@/components/home/services-showcase";
-import { SpacesGallery } from "@/components/home/spaces-gallery";
-import { Testimonials } from "@/components/home/testimonials";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
-
-export const Route = createFileRoute("/")({
+import { CaseStudies } from "@/features/marketing/components/home/case-studies";
+import { FieldNotes } from "@/features/marketing/components/home/field-notes";
+import HeroSection from "@/features/marketing/components/home/hero-section";
+import { ServicesShowcase } from "@/features/marketing/components/home/services-showcase";
+import { SpacesGallery } from "@/features/marketing/components/home/spaces-gallery";
+import { Testimonials } from "@/features/marketing/components/home/testimonials";
+export const Route = createFileRoute("/_public/")({
 	head: () => ({
 		meta: [
 			{
@@ -23,13 +20,9 @@ export const Route = createFileRoute("/")({
 
 function HomeComponent() {
 	return (
-		<div className="flex min-h-screen flex-col justify-between bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-			<div>
-				{/* Navigation Header */}
-				<Header />
-
-				{/* Interactive Video Hero Section */}
-				<HeroSection />
+		<div className="selection:bg-primary selection:text-primary-foreground">
+			{/* Interactive Video Hero Section */}
+			<HeroSection />
 
 				<ServicesShowcase />
 
@@ -75,10 +68,6 @@ function HomeComponent() {
 						</div>
 					</div>
 				</section>
-			</div>
-
-			{/* Site Footer */}
-			<Footer />
 		</div>
 	);
 }

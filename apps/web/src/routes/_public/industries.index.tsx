@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Factory } from "lucide-react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
-import { ServiceCard } from "@/components/service-card";
+import { ServiceCard } from "@/features/marketing/components/service-card";
 import { INDUSTRIES } from "@/data/industries";
 
-export const Route = createFileRoute("/industries/")({
+export const Route = createFileRoute("/_public/industries/")({
 	component: IndustriesPage,
 	head: () => ({
 		meta: [
@@ -23,10 +21,7 @@ export const Route = createFileRoute("/industries/")({
 
 function IndustriesPage() {
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
 						aria-hidden="true"
@@ -65,9 +60,6 @@ function IndustriesPage() {
 						))}
 					</div>
 				</div>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

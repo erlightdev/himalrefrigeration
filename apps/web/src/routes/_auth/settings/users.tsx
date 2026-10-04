@@ -49,7 +49,7 @@ import {
 } from "lucide-react";
 import { type FormEvent, useEffect, useState } from "react";
 
-import { ConfirmDeleteModal } from "@/components/dashboard/confirm-delete-modal";
+import { ConfirmDeleteModal } from "@/features/dashboard/components/confirm-delete-modal";
 import { Button } from "@/components/motion/button/base";
 import { StatefulButton } from "@/components/motion/button/stateful";
 import { Input } from "@/components/motion/input";
@@ -61,7 +61,7 @@ import {
 	SelectValue,
 } from "@/components/motion/select";
 import { Table as DataTable } from "@/components/motion/table";
-import { UserAvatar } from "@/components/user-avatar";
+import { UserAvatar } from "@/features/dashboard/components/user-avatar";
 import { useButtonState } from "@/hooks/use-button-state";
 import { usePermissions } from "@/hooks/use-permissions";
 import { authClient } from "@/lib/auth-client";

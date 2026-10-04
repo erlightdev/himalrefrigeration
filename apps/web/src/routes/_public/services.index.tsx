@@ -8,16 +8,14 @@ import {
 	Wrench,
 } from "lucide-react";
 
-import { HowWeWork } from "@/components/how-we-work";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
+import { HowWeWork } from "@/features/marketing/components/how-we-work";
 import { AnimatedNumber } from "@/components/motion/animated-number";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { TextReveal } from "@/components/motion/text-reveal";
-import { ServiceCard } from "@/components/service-card";
+import { ServiceCard } from "@/features/marketing/components/service-card";
 import { SERVICES } from "@/data/services";
 
-export const Route = createFileRoute("/services/")({
+export const Route = createFileRoute("/_public/services/")({
 	component: ServicesPage,
 	head: () => ({
 		meta: [
@@ -87,10 +85,7 @@ const PROCESS = [
 
 function ServicesPage() {
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				{/* Hero */}
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
@@ -219,9 +214,6 @@ function ServicesPage() {
 						</ScrollReveal>
 					</div>
 				</section>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

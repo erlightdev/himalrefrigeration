@@ -10,10 +10,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 
-export const Route = createFileRoute("/faq")({
+export const Route = createFileRoute("/_public/faq")({
 	component: RouteComponent,
 	head: () => ({
 		meta: [{ title: "Frequently Asked Questions - Himal Refrigeration" }],
@@ -116,9 +114,7 @@ function RouteComponent() {
 	const displayedFaqs = filteredFaqs.slice(0, visibleCount);
 
 	return (
-		<div className="flex min-h-screen flex-col justify-between bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-			<div>
-				<Header />
+		<div className="selection:bg-primary selection:text-primary-foreground">
 
 				{/* FAQ Hero Section */}
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background pt-32 pb-16 sm:pt-36 lg:pt-40">
@@ -262,9 +258,6 @@ function RouteComponent() {
 						</div>
 					</div>
 				</section>
-			</div>
-
-			<Footer />
 		</div>
 	);
 }

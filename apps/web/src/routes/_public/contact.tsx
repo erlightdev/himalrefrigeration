@@ -2,8 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Building2, Check, Clock, Mail, MapPin, PhoneCall } from "lucide-react";
 import { type FormEvent, useState } from "react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { StatefulButton } from "@/components/motion/button/stateful";
 import { Input } from "@/components/motion/input";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
@@ -15,7 +13,7 @@ import {
 	SelectValue,
 } from "@/components/motion/select";
 
-export const Route = createFileRoute("/contact")({
+export const Route = createFileRoute("/_public/contact")({
 	component: ContactPage,
 	head: () => ({
 		meta: [
@@ -52,10 +50,7 @@ const telHref = (number: string) => `tel:${number.replace(/[^0-9+]/g, "")}`;
 
 function ContactPage() {
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
 						aria-hidden="true"
@@ -82,10 +77,7 @@ function ContactPage() {
 						<ContactForm />
 					</div>
 				</div>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }
 

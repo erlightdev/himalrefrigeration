@@ -23,7 +23,7 @@ import {
   type ReactElement,
 } from "react";
 import { MorphPopover, MorphPopoverContent, MorphPopoverTrigger } from "@/components/motion/popover-morph";
-import { useHoverCapable } from "@/lib/hooks/use-hover-capable";
+import { useHoverCapable } from "@/hooks/use-hover-capable";
 import { EASE_OUT, SPRING_LAYOUT } from "@/lib/ease";
 import { cn } from "@himalref/ui/lib/utils";
 

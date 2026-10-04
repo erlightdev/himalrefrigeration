@@ -1,7 +1,7 @@
 import { PanelLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { NotificationsMenu } from "@/components/dashboard/notifications-menu";
+import { NotificationsMenu } from "@/features/dashboard/components/notifications-menu";
 import { ModeToggle } from "@/components/mode-toggle";
 import { AnimatedSidebarTrigger } from "@/components/motion/animated-sidebar";
 

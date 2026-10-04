@@ -1,8 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Check, Search, ShieldCheck, Wrench, X } from "lucide-react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { BouncyAccordion } from "@/components/motion/bouncy-accordion";
 import {
 	Breadcrumb,
@@ -13,14 +11,14 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/motion/breadcrumb";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
-import { ServiceCard } from "@/components/service-card";
+import { ServiceCard } from "@/features/marketing/components/service-card";
 import { getIndustry, INDUSTRIES } from "@/data/industries";
 
 // Same three-phase shape for every industry — the work differs, the
 // rhythm (assess, fit, maintain) doesn't.
 const PROCESS_ICONS = [Search, Wrench, ShieldCheck] as const;
 
-export const Route = createFileRoute("/industries/$slug")({
+export const Route = createFileRoute("/_public/industries/$slug")({
 	// Icon is a component reference and can't cross the loader's
 	// server→client serialization boundary, so the loader only confirms the
 	// slug exists (and 404s otherwise); the component re-reads the full
@@ -76,10 +74,7 @@ function IndustryPage() {
 		.slice(0, 3);
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<article className="mx-auto max-w-4xl px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
 					<Breadcrumb>
 						<BreadcrumbList maxItems={Number.POSITIVE_INFINITY}>
@@ -275,9 +270,6 @@ function IndustryPage() {
 						</div>
 					</section>
 				) : null}
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

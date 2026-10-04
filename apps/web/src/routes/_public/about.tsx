@@ -8,14 +8,12 @@ import {
 	Wrench,
 } from "lucide-react";
 
-import { HowWeWork } from "@/components/how-we-work";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
+import { HowWeWork } from "@/features/marketing/components/how-we-work";
 import { AnimatedNumber } from "@/components/motion/animated-number";
 import { Marquee } from "@/components/motion/marquee";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute("/_public/about")({
 	component: AboutPage,
 	head: () => ({
 		meta: [
@@ -157,10 +155,7 @@ function SectionHeading({
 
 function AboutPage() {
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				{/* Who we are */}
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
@@ -315,9 +310,6 @@ function AboutPage() {
 						))}
 					</Marquee>
 				</section>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

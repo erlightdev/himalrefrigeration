@@ -7,9 +7,10 @@ import {
 	Wrench,
 } from "lucide-react";
 
-import { HowWeWork, type HowWeWorkStep } from "@/components/how-we-work";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
+import {
+	HowWeWork,
+	type HowWeWorkStep,
+} from "@/features/marketing/components/how-we-work";
 import { AnimatedNumber } from "@/components/motion/animated-number";
 import { BouncyAccordion } from "@/components/motion/bouncy-accordion";
 import {
@@ -21,8 +22,8 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/motion/breadcrumb";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
-import { ServiceCard } from "@/components/service-card";
-import { ServiceTabs } from "@/components/service-tabs";
+import { ServiceCard } from "@/features/marketing/components/service-card";
+import { ServiceTabs } from "@/features/marketing/components/service-tabs";
 import { getService, SERVICES } from "@/data/services";
 
 // Same three-phase shape for every service — the work differs, the
@@ -30,7 +31,7 @@ import { getService, SERVICES } from "@/data/services";
 const PROCESS_ICONS = [Search, Wrench, ShieldCheck] as const;
 const PREVIEW_KINDS = ["survey", "install", "maintain"] as const;
 
-export const Route = createFileRoute("/services/$slug")({
+export const Route = createFileRoute("/_public/services/$slug")({
 	// Icon is a component reference and can't cross the loader's
 	// server→client serialization boundary, so the loader only confirms the
 	// slug exists (and 404s otherwise); the component re-reads the full
@@ -82,10 +83,7 @@ function ServicePage() {
 	);
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				{/* Hero */}
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
@@ -269,9 +267,6 @@ function ServicePage() {
 						</div>
 					</div>
 				</section>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

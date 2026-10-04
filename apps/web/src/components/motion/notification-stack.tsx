@@ -14,9 +14,9 @@ import {
 } from "react";
 import { ActionSwapText } from "@/components/motion/action-swap";
 import { EASE_OUT, SPRING_LAYOUT } from "@/lib/ease";
-import { useDismiss } from "@/lib/hooks/use-dismiss";
-import { useHoverGesture } from "@/lib/hooks/use-hover-gesture";
-import { useTapGesture } from "@/lib/hooks/use-tap-gesture";
+import { useDismiss } from "@/hooks/use-dismiss";
+import { useHoverGesture } from "@/hooks/use-hover-gesture";
+import { useTapGesture } from "@/hooks/use-tap-gesture";
 import { cn } from "@himalref/ui/lib/utils";
 
 export type NotificationStackItem = {

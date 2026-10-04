@@ -5,7 +5,7 @@ import {
 	useRouterState,
 } from "@tanstack/react-router";
 
-import { PageHeader } from "@/components/dashboard/page-header";
+import { PageHeader } from "@/features/dashboard/components/page-header";
 import { Tabs, TabsList, TabsTrigger } from "@/components/motion/tabs";
 import { usePermissions } from "@/hooks/use-permissions";
 

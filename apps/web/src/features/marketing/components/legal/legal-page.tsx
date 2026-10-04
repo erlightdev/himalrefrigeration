@@ -1,7 +1,5 @@
 import { Link } from "@tanstack/react-router";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import type { LegalSection } from "@/data/legal/privacy-policy";
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -20,11 +18,7 @@ export function LegalPage({
 	sections: LegalSection[];
 }) {
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
-				<div className="mx-auto max-w-5xl px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
+		<div className="mx-auto max-w-5xl px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
 					<h1 className="text-balance font-extrabold text-3xl leading-[1.15] tracking-tight sm:text-4xl">
 						{title}
 					</h1>
@@ -114,9 +108,5 @@ export function LegalPage({
 						</div>
 					</div>
 				</div>
-			</main>
-
-			<Footer />
-		</div>
 	);
 }

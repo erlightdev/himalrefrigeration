@@ -11,7 +11,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Activity, CalendarDays, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { PageHeader } from "@/components/dashboard/page-header";
+import { PageHeader } from "@/features/dashboard/components/page-header";
 import { orpc } from "@/utils/orpc";
 
 export const Route = createFileRoute("/_auth/dashboard")({

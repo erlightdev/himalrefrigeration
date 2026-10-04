@@ -5,7 +5,7 @@ import {
 	useNavigate,
 } from "@tanstack/react-router";
 
-import { AppSidebar } from "@/components/dashboard/app-sidebar";
+import { AppSidebar } from "@/features/dashboard/components/app-sidebar";
 import {
 	AnimatedSidebarInset,
 	AnimatedSidebarProvider,

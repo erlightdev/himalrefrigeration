@@ -1,8 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Link2 } from "lucide-react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -22,7 +20,7 @@ import {
 } from "@/data/blog-posts";
 import { toast } from "@/lib/toast";
 
-export const Route = createFileRoute("/blog/$slug")({
+export const Route = createFileRoute("/_public/blog/$slug")({
 	loader: ({ params }) => {
 		const post = BLOG_POSTS.find((item) => item.slug === params.slug);
 		if (!post) throw notFound();
@@ -63,10 +61,7 @@ function ArticlePage() {
 	const [lead, ...body] = post.body;
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<article className="mx-auto max-w-3xl px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
 					<Breadcrumb>
 						<BreadcrumbList maxItems={Number.POSITIVE_INFINITY}>
@@ -160,10 +155,7 @@ function ArticlePage() {
 						</div>
 					</section>
 				) : null}
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }
 

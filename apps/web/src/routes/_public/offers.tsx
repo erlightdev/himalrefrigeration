@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Check, Gift } from "lucide-react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { ButtonLink } from "@/components/motion/button/base";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { formatOfferWindow, OFFERS, offerStatus } from "@/data/offers";
 
-export const Route = createFileRoute("/offers")({
+export const Route = createFileRoute("/_public/offers")({
 	component: OffersPage,
 	head: () => ({
 		meta: [
@@ -33,10 +31,7 @@ function OffersPage() {
 	);
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
 						aria-hidden="true"
@@ -126,9 +121,6 @@ function OffersPage() {
 						</div>
 					)}
 				</div>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }

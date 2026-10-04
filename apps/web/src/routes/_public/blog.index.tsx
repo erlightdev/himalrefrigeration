@@ -2,8 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
 import { Input } from "@/components/motion/input";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/motion/tabs";
@@ -15,7 +13,7 @@ import {
 	postsByDate,
 } from "@/data/blog-posts";
 
-export const Route = createFileRoute("/blog/")({
+export const Route = createFileRoute("/_public/blog/")({
 	component: BlogPage,
 	head: () => ({
 		meta: [
@@ -50,10 +48,7 @@ function BlogPage() {
 	const [lead, ...rest] = browsing ? posts : [undefined, ...posts];
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background text-foreground">
-			<Header />
-
-			<main className="flex-1">
+		<>
 				<section className="relative overflow-hidden border-border/60 border-b bg-gradient-to-b from-primary/5 via-background to-background">
 					<div
 						aria-hidden="true"
@@ -124,10 +119,7 @@ function BlogPage() {
 						</>
 					)}
 				</div>
-			</main>
-
-			<Footer />
-		</div>
+			</>
 	);
 }
 
