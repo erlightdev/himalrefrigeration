@@ -303,7 +303,7 @@ const nav: NavItem[] = [
 			},
 		},
 	},
-	{ href: "/", label: "Case Studies", badge: "Projects" },
+	{ href: "/", label: "Projects" },
 ];
 
 export default function Header() {
