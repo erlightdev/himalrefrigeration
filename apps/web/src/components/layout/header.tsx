@@ -2,13 +2,18 @@ import {
 	ArrowRight,
 	ArrowUpRight,
 	Beef,
+	Briefcase,
 	Building2,
 	CalendarDays,
 	ChevronDown,
 	FileText,
+	Film,
 	Gauge,
+	Globe,
+	GraduationCap,
 	HeartPulse,
 	HelpCircle,
+	Landmark,
 	Menu,
 	PhoneCall,
 	Pill,
@@ -28,6 +33,7 @@ import type { ComponentType, SVGProps } from "react";
 import { useEffect, useState } from "react";
 
 import { currentOrNextOffer, formatOfferWindow } from "@/data/offers";
+import { totalProjectCount } from "@/data/projects";
 
 import { ModeToggle } from "../mode-toggle";
 
@@ -303,7 +309,64 @@ const nav: NavItem[] = [
 			},
 		},
 	},
-	{ href: "/", label: "Projects" },
+	{
+		href: "/projects",
+		label: "Projects",
+		mega: {
+			items: [
+				{
+					label: "Banking & Finance",
+					category: "Branch & server-room HVAC",
+					Icon: Landmark,
+					href: "/projects/bank-finance",
+				},
+				{
+					label: "Corporate Sectors",
+					category: "Office & retail HVAC",
+					Icon: Briefcase,
+					href: "/projects/corporate",
+				},
+				{
+					label: "Education",
+					category: "Schools & universities",
+					Icon: GraduationCap,
+					href: "/projects/education",
+				},
+				{
+					label: "Embassy",
+					category: "Diplomatic missions",
+					Icon: Globe,
+					href: "/projects/embassy",
+				},
+				{
+					label: "Healthcare",
+					category: "Hospitals & clinics",
+					Icon: HeartPulse,
+					href: "/projects/health",
+				},
+				{
+					label: "Hotels & Resorts",
+					category: "Hospitality",
+					Icon: Building2,
+					href: "/projects/hotel",
+				},
+				{
+					label: "Entertainment",
+					category: "Cinemas & malls",
+					Icon: Film,
+					href: "/projects/entertainment",
+				},
+			],
+			feature: {
+				tag: "Portfolio",
+				title: `${totalProjectCount()}+ completed sites`,
+				description:
+					"A sector-wise record of HVAC and refrigeration installations we've delivered across Nepal.",
+				image: "/images/projects/bank-finance/nepal-rastra-bank.jpg",
+				href: "/projects",
+			},
+		},
+	},
 ];
 
 export default function Header() {
