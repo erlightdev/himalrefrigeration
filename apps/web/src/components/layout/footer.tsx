@@ -1,6 +1,7 @@
-import { ArrowUpRight, CalendarDays, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 
 import { INDUSTRIES } from "@/data/industries";
+import { PROJECT_CATEGORIES } from "@/data/projects";
 
 const socials = [
 	{
@@ -32,19 +33,15 @@ const socials = [
 
 const columns = [
 	{
-		label: "Product",
-		links: [
-			"What's New",
-			"Cooling Systems",
-			"Installation",
-			"Maintenance",
-			"Spare Parts",
-			"All Services",
-		],
-	},
-	{
 		label: "Industries",
 		links: ["All Industries", ...INDUSTRIES.map((industry) => industry.label)],
+	},
+	{
+		label: "Projects",
+		links: [
+			"All Projects",
+			...PROJECT_CATEGORIES.map((category) => category.label),
+		],
 	},
 	{
 		label: "Support",
@@ -56,7 +53,7 @@ const columns = [
 	},
 	{
 		label: "Company",
-		links: ["About Us", "Careers", "Events", "Partners", "Compliance"],
+		links: ["About Us", "Careers", "Events", "Partners"],
 	},
 ];
 
@@ -71,14 +68,17 @@ const linkHrefs: Record<string, string> = {
 	"Case Studies": "/clients",
 	Offers: "/offers",
 	"All Industries": "/industries",
-	"All Services": "/services",
-	"Cooling Systems": "/services/cooling-systems",
-	Installation: "/services/cooling-systems",
-	Maintenance: "/services/maintenance-support",
+	"All Projects": "/projects",
 	...Object.fromEntries(
 		INDUSTRIES.map((industry) => [
 			industry.label,
 			`/industries/${industry.slug}`,
+		]),
+	),
+	...Object.fromEntries(
+		PROJECT_CATEGORIES.map((category) => [
+			category.label,
+			`/projects/${category.slug}`,
 		]),
 	),
 };
@@ -124,15 +124,6 @@ export default function Footer() {
 								quietly, lasts longer, and keeps your operating costs
 								predictable.
 							</p>
-							<a
-								href="tel:+9779800000000"
-								className="group mt-8 inline-flex items-center gap-3 rounded-full bg-primary py-2 pr-2 pl-5 font-medium text-primary-foreground text-xs uppercase tracking-[0.12em] transition hover:bg-primary/90 active:translate-y-px"
-							>
-								Book a call
-								<span className="grid h-7 w-7 place-items-center rounded-full bg-white text-primary">
-									<CalendarDays className="h-3.5 w-3.5" strokeWidth={2} />
-								</span>
-							</a>
 						</div>
 
 						<div className="flex flex-col gap-4">

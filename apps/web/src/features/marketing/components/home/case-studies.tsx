@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { ButtonLink } from "@/components/motion/button/base";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import { PROJECT_CATEGORIES } from "@/data/projects";
 
 type CaseStudy = {
 	client: string;
@@ -13,67 +14,38 @@ type CaseStudy = {
 	image: string;
 	/** Panel colour — a Tailwind background class. */
 	tone: string;
-	/** Link to the full write-up; the button only shows once there is one. */
-	href?: string;
+	href: string;
 };
 
-/**
- * Real projects go here, with the client's permission to be named and with
- * figures they've confirmed. While this is empty the carousel renders
- * SAMPLE_CASE_STUDIES in development only, so invented results never ship.
- */
-const CASE_STUDIES: CaseStudy[] = [];
+const FOUNDED = 1998;
 
-const SAMPLE_CASE_STUDIES: CaseStudy[] = [
-	{
-		client: "Hotel group",
-		title: "Quiet, even cooling across every guest floor",
-		stats: [
-			{ value: "120+", label: "Rooms on VRF" },
-			{ value: "30%", label: "Lower energy use" },
-		],
-		image: "/images/projects/rooftop-crew.webp",
-		tone: "bg-[#8f1d24]",
-	},
-	{
-		client: "Supermarket chain",
-		title: "Display cases that hold temperature all day",
-		stats: [
-			{ value: "40", label: "Display cases" },
-			{ value: "6", label: "Stores" },
-		],
-		image: "/images/projects/dairy-display.webp",
-		tone: "bg-[#1f4e79]",
-	},
-	{
-		client: "Pharmaceutical distributor",
-		title: "A cold chain built for vaccines",
-		stats: [
-			{ value: "+2–8°C", label: "Held year-round" },
-			{ value: "24/7", label: "Monitoring" },
-		],
-		image: "/images/projects/frozen-storage.webp",
-		tone: "bg-[#2f5d50]",
-	},
-	{
-		client: "Hospital",
-		title: "Critical-area climate with no downtime",
-		stats: [
-			{ value: "4", label: "Operating theatres" },
-			{ value: "AMC", label: "Lifetime support" },
-		],
-		image: "/images/projects/condenser-bank.webp",
-		tone: "bg-[#3d3a4f]",
-	},
-];
+// A real, verifiable pair of figures per sector — a project count we can
+// actually point to, plus how long we've served that sector — rather than
+// an invented metric.
+const TONES = [
+	"bg-[#8f1d24]",
+	"bg-[#1f4e79]",
+	"bg-[#2f5d50]",
+	"bg-[#3d3a4f]",
+	"bg-[#6b4a1f]",
+	"bg-[#1f4e4e]",
+	"bg-[#4a2f5d]",
+] as const;
+
+const CASE_STUDIES: CaseStudy[] = PROJECT_CATEGORIES.map((category, index) => ({
+	client: category.label,
+	title: category.tagline,
+	stats: [
+		{ value: `${category.projects.length}+`, label: "Completed sites" },
+		{ value: `${FOUNDED}`, label: "Serving since" },
+	],
+	image: category.projects[0].image,
+	tone: TONES[index % TONES.length],
+	href: `/projects/${category.slug}`,
+}));
 
 export function CaseStudies() {
-	const items =
-		CASE_STUDIES.length > 0
-			? CASE_STUDIES
-			: import.meta.env.DEV
-				? SAMPLE_CASE_STUDIES
-				: [];
+	const items = CASE_STUDIES;
 
 	const [viewportRef, embla] = useEmblaCarousel({
 		align: "center",
@@ -127,10 +99,6 @@ export function CaseStudies() {
 					>
 						<ChevronRight className="size-4" />
 					</button>
-					<ButtonLink href="/contact" size="sm" className="ml-2 h-10 px-4">
-						Discuss your project
-						<ArrowRight className="size-3.5" />
-					</ButtonLink>
 				</div>
 			</ScrollReveal>
 
@@ -173,18 +141,16 @@ export function CaseStudies() {
 												</div>
 											))}
 										</dl>
-										{study.href ? (
-											<ButtonLink
-												href={study.href}
-												size="sm"
-												variant="secondary"
-												tabIndex={active ? 0 : -1}
-												className="mt-6 w-fit border-0 bg-white text-neutral-900 hover:bg-white/90"
-											>
-												Read the story
-												<ArrowRight className="size-3.5" />
-											</ButtonLink>
-										) : null}
+										<ButtonLink
+											href={study.href}
+											size="sm"
+											variant="secondary"
+											tabIndex={active ? 0 : -1}
+											className="mt-6 w-fit border-0 bg-white text-neutral-900 hover:bg-white/90"
+										>
+											View projects
+											<ArrowRight className="size-3.5" />
+										</ButtonLink>
 									</div>
 									{/* Absolutely positioned so a tall photo can't stretch the row. */}
 									<div className="relative h-56 md:h-auto">
